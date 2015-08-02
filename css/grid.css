@@ -1,0 +1,97 @@
+.cherry-u1,
+.cherry-u1-1,
+.cherry-u1-2,
+.cherry-u1-3,
+.cherry-u2-3,
+.cherry-u1-4,
+.cherry-u3-4,
+.cherry-u1-6,
+.cherry-u5-6,
+.cherry-u1-12,
+.cherry-u2-12,
+.cherry-u3-12,
+.cherry-u4-12,
+.cherry-u5-12,
+.cherry-u6-12,
+.cherry-u7-12,
+.cherry-u8-12,
+.cherry-u9-12,
+.cherry-u10-12,
+.cherry-u11-12,
+.cherry-u12-12 {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    letter-spacing: normal;
+    word-spacing: normal;
+    vertical-align: top;
+    text-rendering: auto;
+}
+
+.cherry-u1-12 {
+    width: 8.3333%;
+    *width: 8.3023%;
+}
+
+.cherry-u1-6,
+.cherry-u2-12 {
+    width: 16.6667%;
+    *width: 16.6357%;
+}
+
+.cherry-u1-4,
+.cherry-u3-12 {
+    width: 25%;
+    *width: 24.9690%;
+}
+
+.cherry-u1-3,
+.cherry-u4-12 {
+    width: 33.3333%;
+    *width: 33.3023%;
+}
+
+.cherry-u5-12 {
+    width: 41.6667%;
+    *width: 41.6357%;
+}
+
+.cherry-u1-2,
+.cherry-u6-12 {
+    width: 50%;
+    *width: 49.9690%;
+}
+
+.cherry-u7-12 {
+    width: 58.3333%;
+    *width: 58.3023%;
+}
+
+.cherry-u2-3,
+.cherry-u8-12 {
+    width: 66.6667%;
+    *width: 66.6357%;
+}
+
+.cherry-u3-4,
+.cherry-u9-12 {
+    width: 75%;
+    *width: 74.9690%;
+}
+
+.cherry-u5-6,
+.cherry-u10-12 {
+    width: 83.3333%;
+    *width: 83.3023%;
+}
+
+.cherry-u11-12 {
+    width: 91.6667%;
+    *width: 91.6357%;
+}
+
+.cherry-u1,
+.cherry-u1-1,
+.cherry-u12-12 {
+    width: 100%;
+}
