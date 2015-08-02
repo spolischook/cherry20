@@ -1,0 +1,32 @@
+{
+  "name": "cherry-art",
+  "version": "0.1.0",
+  "description": "cherry art",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "~3.9.0"
+  },
+  "devDependencies": {
+    "gulp": "~3.9.0",
+    "gulp-concat": "~2.6.0",
+    "gulp-minify-css": "~1.2.0",
+    "gulp-rename": "~1.2.2",
+    "gulp-inject": "~1.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spolischook/cherry20.git"
+  },
+  "keywords": [
+    "art"
+  ],
+  "author": "Serhii Polishchuk",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/spolischook/cherry20/issues"
+  },
+  "homepage": "https://github.com/spolischook/cherry20"
+}
