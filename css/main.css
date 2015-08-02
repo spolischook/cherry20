@@ -12,7 +12,7 @@ div.container {
 
 .custom-wrapper {
     background-color: #ffd390;
-    margin-bottom: 1em;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5)
     -webkit-font-smoothing: antialiased;
     height: 2.1em;
     overflow: hidden;
