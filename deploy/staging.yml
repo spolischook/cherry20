@@ -24,5 +24,11 @@
     - name: Pull sources from the repository.
       git: repo={{git_repository}} dest={{project_root}}/releases/{{release_dir}} version={{git_branch}}
 
+    - name: Install npm dependencies
+      npm: path={{project_root}}
+
+    - name: Gulp prepare project
+      command: gulp prod
+
     - include: tasks/cleanup.yml
     - include: tasks/symlink.yml
