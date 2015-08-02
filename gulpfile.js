@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     rename = require("gulp-rename"),
     inject = require('gulp-inject'),
     crypto = require('crypto'),
-    fs = require('fs');
+    fs = require('fs'),
+    path = require('path');
 
 var cssFile = 'style.min.css';
 
@@ -19,7 +20,7 @@ gulp.task('minify-concat-css', function() {
 gulp.task('inject', function() {
     var cssSha = checksum(fs.readFileSync('./css/' + cssFile), 'sha1');
     var target = gulp.src('./index.html');
-    var sources = gulp.src(['./css/' + cssFile], {read: false});
+    var sources = gulp.src([path.resolve('./css/' + cssFile)], {read: false});
 
     return target.pipe(inject(sources, {addSuffix: '?version='+cssSha}))
         .pipe(gulp.dest('./'));
