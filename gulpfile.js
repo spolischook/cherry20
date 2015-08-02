@@ -18,9 +18,10 @@ gulp.task('minify-concat-css', function() {
 });
 
 gulp.task('inject', function() {
-    var cssSha = checksum(fs.readFileSync('./css/' + cssFile), 'sha1');
+    var styleFile = path.resolve('./css/' + cssFile);
+    var cssSha = checksum(fs.readFileSync(styleFile), 'sha1');
     var target = gulp.src('./index.html');
-    var sources = gulp.src([path.resolve('./css/' + cssFile)], {read: false});
+    var sources = gulp.src([styleFile], {read: false});
 
     return target.pipe(inject(sources, {addSuffix: '?version='+cssSha}))
         .pipe(gulp.dest('./'));
