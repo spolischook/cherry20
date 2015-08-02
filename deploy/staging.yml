@@ -1,0 +1,28 @@
+---
+- hosts: execi
+  remote_user: root
+  vars:
+    project_root: /var/www/cherryart.pp.ua
+    git_repository: https://github.com/spolischook/cherry20.git
+    git_branch: master
+    user: www-data
+    keep_releases: 3
+    project_env: staging
+
+  tasks:
+    - name: Get timestamp
+      command: date +%Y%m%d%H%M%S
+      register: timestamp
+
+    - name: Get release dir name
+      set_fact:
+        release_dir: "{{timestamp.stdout}}"
+
+    - name: Create the release {{release_dir}} directory.
+      file: state=directory path={{project_root}}/releases/{{release_dir}} owner={{ user }} group={{ user }}
+
+    - name: Pull sources from the repository.
+      git: repo={{git_repository}} dest={{project_root}}/releases/{{release_dir}} version={{git_branch}}
+
+    - include: tasks/cleanup.yml
+    - include: tasks/symlink.yml
