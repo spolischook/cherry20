@@ -17,7 +17,7 @@ gulp.task('minify-concat-css', function() {
         .pipe(gulp.dest('./css/'));
 });
 
-gulp.task('inject', function() {
+gulp.task('inject', ['minify-concat-css'], function() {
     var styleFile = path.resolve('./css/' + cssFile);
     var cssSha = checksum(fs.readFileSync(styleFile), 'sha1');
     var target = gulp.src('./index.html');
