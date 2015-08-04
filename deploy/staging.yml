@@ -25,10 +25,10 @@
       git: repo={{git_repository}} dest={{project_root}}/releases/{{release_dir}} version={{git_branch}}
 
     - name: Install npm dependencies
-      npm: path={{project_root}}
+      npm: path={{project_root}}/releases/{{release_dir}}
 
     - name: Gulp prepare project
-      command: gulp prod
+      command: gulp prod chdir={{project_root}}/releases/{{release_dir}}/
 
     - include: tasks/cleanup.yml
     - include: tasks/symlink.yml
