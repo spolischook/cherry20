@@ -70,13 +70,33 @@
     })(this, this.document);
 
 </script>
+<script>
+    var staff = {
+        "js": [
+        ],
+        "css": [
+        ]
+    };
+    function loadStyleSheet(src){
+        if (document.createStyleSheet) document.createStyleSheet(src);
+        else {
+            var stylesheet = document.createElement('link');
+            stylesheet.href = src;
+            stylesheet.rel = 'stylesheet';
+            stylesheet.type = 'text/css';
+            document.getElementsByTagName('head')[0].appendChild(stylesheet);
+        }
+    }
+
+    window.onload = function()
+    {
+        staff.css.forEach(function(src) {
+            loadStyleSheet(src);
+        })
+    };
+</script>
 
 </body>
 </html>
 <!-- inject:css -->
-<link rel="stylesheet" href="/css/grid.css">
-<link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/style.min.css">
-<link rel="stylesheet" href="/css/pure/0.6.0/grids-responsive-min.css">
-<link rel="stylesheet" href="/css/pure/0.6.0/pure-min.css">
 <!-- endinject -->
