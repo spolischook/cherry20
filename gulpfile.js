@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     crypto = require('crypto'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    bower = require('gulp-bower');
 
 var baseMinCssFile = 'main.min.css',
     baseCssFiles   = [
@@ -22,12 +23,16 @@ var baseMinCssFile = 'main.min.css',
 
 //=====================================================//
 
-gulp.task('prod', ['minify-concat-base-css', 'minify-concat-advanced-css', 'inject-prod']);
+gulp.task('prod', ['minify-concat-base-css', 'minify-concat-advanced-css', 'inject-prod', 'minify-html']);
 gulp.task('dev', ['inject-dev']);
 
 //-----------------------------------------------------//
 
-gulp.task('minify-concat-base-css', function() {
+gulp.task('bower-install', function() {
+    return bower();
+});
+
+gulp.task('minify-concat-base-css', ['bower-install'], function() {
     return gulp.src(baseCssFiles)
         .pipe(concat('base.css'))
         .pipe(minifyCss())
@@ -35,7 +40,7 @@ gulp.task('minify-concat-base-css', function() {
         .pipe(gulp.dest('./css/'));
 });
 
-gulp.task('minify-concat-advanced-css', function() {
+gulp.task('minify-concat-advanced-css', ['bower-install'], function() {
     return gulp.src(advancedCssFiles)
         .pipe(concat('advanced.css'))
         .pipe(minifyCss())
@@ -48,7 +53,7 @@ gulp.task('inject-prod', ['minify-concat-advanced-css', 'minify-concat-base-css'
     injectSources([advancedStyleFile]);
 
     var baseStyleFile = path.resolve('./css/' + baseMinCssFile);
-    target.pipe(inject(gulp.src([baseStyleFile]), {
+    return target.pipe(inject(gulp.src([baseStyleFile]), {
             starttag: '<!-- inject:head:{{ext}} -->',
             transform: function (filePath, file) {
                 // return file contents as string
@@ -58,10 +63,14 @@ gulp.task('inject-prod', ['minify-concat-advanced-css', 'minify-concat-base-css'
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('inject-dev', function() {
+gulp.task('minify-html', ['inject-prod'], function() {
+
+});
+
+gulp.task('inject-dev', ['bower-install'], function() {
     injectSources(advancedCssFiles);
 
-    target.pipe(inject(gulp.src(baseCssFiles), {
+    return target.pipe(inject(gulp.src(baseCssFiles), {
         starttag: '<!-- inject:head:{{ext}} -->'
         }))
         .pipe(gulp.dest('./'));
