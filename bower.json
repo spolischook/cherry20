@@ -1,0 +1,28 @@
+{
+  "name": "cherryart",
+  "version": "0.1.0",
+  "homepage": "https://github.com/spolischook/cherry20",
+  "authors": [
+    "Sergey Polischuk <spolischook@gmail.com>"
+  ],
+  "description": "cherry art",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "cherry",
+    "art"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pure": "~0.6.0",
+    "photoswipe": "~4.1.0"
+  }
+}
