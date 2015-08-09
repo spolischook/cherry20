@@ -35,7 +35,7 @@ gulp.task('minify-concat-base-css', function() {
         .pipe(gulp.dest('./css/'));
 });
 
-gulp.task('minify-concat-advanced-css', ['minify-concat-base-css'], function() {
+gulp.task('minify-concat-advanced-css', function() {
     return gulp.src(advancedCssFiles)
         .pipe(concat('advanced.css'))
         .pipe(minifyCss())
@@ -43,7 +43,7 @@ gulp.task('minify-concat-advanced-css', ['minify-concat-base-css'], function() {
         .pipe(gulp.dest('./css/'));
 });
 
-gulp.task('inject-prod', ['minify-concat-advanced-css'], function() {
+gulp.task('inject-prod', ['minify-concat-advanced-css', 'minify-concat-base-css'], function() {
     var advancedStyleFile = path.resolve('./css/' + advancedMinCssFile);
     injectSources([advancedStyleFile]);
 
