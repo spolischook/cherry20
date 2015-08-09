@@ -7,27 +7,67 @@ var gulp = require('gulp'),
     fs = require('fs'),
     path = require('path');
 
-var cssFile = 'style.min.css';
+var baseMinCssFile = 'main.min.css',
+    baseCssFiles   = [
+        'bower_components/pure/menus.css',
+        'bower_components/pure/grids-responsive.css',
+        'src/css/main.css'
+    ],
+    advancedMinCssFile = 'style.min.css',
+    advancedCssFiles   = [
+        'bower_components/photoswipe/dist/photoswipe.css',
+        'bower_components/photoswipe/dist/default-skin/default-skin.css'
+    ],
+    target = gulp.src('./src/index.html');
 
-gulp.task('minify-concat-css', function() {
-    return gulp.src('./css/**/*.css')
-        .pipe(concat('style.css'))
+//=====================================================//
+
+gulp.task('prod', ['minify-concat-base-css', 'minify-concat-advanced-css', 'inject-prod']);
+gulp.task('dev', ['inject-dev']);
+
+//-----------------------------------------------------//
+
+gulp.task('minify-concat-base-css', function() {
+    return gulp.src(baseCssFiles)
+        .pipe(concat('base.css'))
         .pipe(minifyCss())
-        .pipe(rename(cssFile))
+        .pipe(rename(baseMinCssFile))
         .pipe(gulp.dest('./css/'));
 });
 
-gulp.task('inject-prod', ['minify-concat-css'], function() {
-    var styleFile = path.resolve('./css/' + cssFile);
-    injectSources([styleFile]);
+gulp.task('minify-concat-advanced-css', ['minify-concat-base-css'], function() {
+    return gulp.src(advancedCssFiles)
+        .pipe(concat('advanced.css'))
+        .pipe(minifyCss())
+        .pipe(rename(advancedMinCssFile))
+        .pipe(gulp.dest('./css/'));
+});
+
+gulp.task('inject-prod', ['minify-concat-advanced-css'], function() {
+    var advancedStyleFile = path.resolve('./css/' + advancedMinCssFile);
+    injectSources([advancedStyleFile]);
+
+    var baseStyleFile = path.resolve('./css/' + baseMinCssFile);
+    target.pipe(inject(gulp.src([baseStyleFile]), {
+            starttag: '<!-- inject:head:{{ext}} -->',
+            transform: function (filePath, file) {
+                // return file contents as string
+                return '<style>' + file.contents.toString('utf8') + '</style>';
+            }
+        }))
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('inject-dev', function() {
-    injectSources(['./css/**/*.css']);
+    injectSources(advancedCssFiles);
+
+    target.pipe(inject(gulp.src(baseCssFiles), {
+        starttag: '<!-- inject:head:{{ext}} -->'
+        }))
+        .pipe(gulp.dest('./'));
 });
 
-gulp.task('prod', ['minify-concat-css', 'inject-prod']);
-gulp.task('dev', ['inject-dev']);
+//----------------------------------------------------------//
 
 function checksum (str, algorithm, encoding) {
     return crypto
@@ -37,7 +77,7 @@ function checksum (str, algorithm, encoding) {
 }
 
 function injectSources(files) {
-    var target = gulp.src('./index.html');
+    //var target = gulp.src('./index.html');
     var sources = gulp.src(files, {read: false});
 
     return target.pipe(inject(sources, {
